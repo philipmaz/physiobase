@@ -18,7 +18,8 @@ ${patient.phoneNumber}
 ${patient.email}
 </span>
 
-<p></p>
+<h5>Diagnostic Research: </h5>
+<p>${patient.diagnostic}</p>
 
 
 
@@ -50,8 +51,8 @@ ${patient.email}
             <td><c:out value="${visit.description}"/></td>
             <td><c:out value="${visit.painScale}"/></td>
             <td><c:out value="${visit.codeICD}"/></td>
-            <td><a href="//localhost:8080/patient/editvisit/${patient.id}/${visit.id}">Modify this visit</a></td>
-            <td><a href="//localhost:8080/patient/deletevisit/${visit.id}">Delete this visit</a></td>
+            <td><a href="//localhost:8080/patient/editvisit/${patient.id}/${visit.id}">Details/Edit</a></td>
+            <td><a href="//localhost:8080/patient/deletevisit/${patient.id}/${visit.id}">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
@@ -59,7 +60,31 @@ ${patient.email}
 </table>
 
 <div>
-    <a href="http://localhost:8080/patient/addvisit/${patient.id}">Add visit</a>
+    <a href="http://localhost:8080/patient/addvisit/${patient.id}">Add Visit</a>
+</div>
+
+<table border="1">
+    <thead>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Modify</th>
+    <th>Delete</th>
+    </thead>
+    <tbody>
+    <c:forEach items="${trainings}" var="training">
+        <tr>
+            <td><c:out value="${training.id}"/></td>
+            <td><c:out value="${training.date}"/></td>
+            <td><c:out value="${training.description}"/></td>
+            <td><a href="//localhost:8080/patient/edittraining/${patient.id}/${training.id}">Details/Edit</a></td>
+            <td><a href="//localhost:8080/patient/deletetraining/${patient.id}/${training.id}">Delete</a></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+<div>
+    <a href="http://localhost:8080/patient/addtraining/${patient.id}">Add Training</a>
 </div>
 
 <div>

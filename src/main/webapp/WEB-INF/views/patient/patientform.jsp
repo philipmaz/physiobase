@@ -50,6 +50,14 @@
         <form:input id="email" path="email"/>
         <form:errors path="email"/>
     </div>
+    <div>
+        <label for="diagnostic">Diagnostic Research: </label>
+        <div>
+            <form:textarea id="diagnostic" path="diagnostic" rows="40" cols="70"/>
+            <form:errors path="diagnostic"/>
+        </div>
+
+    </div>
 <%--    <div>--%>
 <%--        <label for="visits">Visits: </label>--%>
 <%--        <form:input id="visits" path="visits"/>--%>

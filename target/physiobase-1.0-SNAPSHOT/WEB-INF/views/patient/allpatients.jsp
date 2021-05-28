@@ -25,11 +25,11 @@
     <th>Address</th>
     <th>Phone Number</th>
     <th>Email</th>
-    <th>Visits</th>
     <th>Agreement</th>
     <th>Modify</th>
     <th>Delete</th>
-    <th>Visits</th>
+    <th>Show</th>
+    <th>Add</th>
     </thead>
     <tbody>
     <c:forEach items="${patients}" var="patient">
@@ -42,10 +42,9 @@
             <td><c:out value="${patient.address}"/></td>
             <td><c:out value="${patient.phoneNumber}"/></td>
             <td><c:out value="${patient.email}"/></td>
-            <td><c:out value="${patient.visits}"/></td>
             <td><c:out value="${patient.isAgreement}"/></td>
-            <td><a href="//localhost:8080/patient/editpatient/${patient.id}">Modify this patient</a></td>
-            <td><a href="//localhost:8080/patient/deletepatient/${patient.id}">Delete this patient</a></td>
+            <td><a href="//localhost:8080/patient/editpatient/${patient.id}">Modify</a></td>
+            <td><a href="//localhost:8080/patient/deletepatient/${patient.id}">Delete</a></td>
             <td><a href="//localhost:8080/patient/showvisits/${patient.id}">Show visits</a></td>
             <td><a href="//localhost:8080/patient/addvisit/${patient.id}">Add visit</a></td>
         </tr>

@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import physiobase.entity.Patient;
+import physiobase.entity.Training;
 import physiobase.entity.Visit;
 import physiobase.repository.PatientRepository;
+import physiobase.repository.TrainingRepository;
 import physiobase.repository.VisitRepository;
 
 import javax.persistence.EntityManager;
@@ -27,10 +29,12 @@ public class PatientController {
     private EntityManager em;
     private VisitRepository visitRepository;
     private PatientRepository patientRepository;
+    private TrainingRepository trainingRepository;
 
-    public PatientController(VisitRepository visitRepository, PatientRepository patientRepository) {
+    public PatientController(VisitRepository visitRepository, PatientRepository patientRepository, TrainingRepository trainingRepository) {
         this.visitRepository = visitRepository;
         this.patientRepository = patientRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @GetMapping("/all")
@@ -94,12 +98,10 @@ public class PatientController {
         Patient patient = patientRepository.findById(id);
         m.addAttribute("patient", patient);
         Hibernate.initialize(patient.getVisits());
-
-//        Query q = em.createQuery("SELECT e FROM Patient e LEFT JOIN FETCH e.visits WHERE e.id=:id");
-//        q.setParameter("id",id);
-//        Patient patient= (Patient) q.getResultList().get(0);
+        Hibernate.initialize(patient.getTrainings());
 
         m.addAttribute("visits", patient.getVisits());
+        m.addAttribute("trainings", patient.getTrainings());
 
         return "visit/allpatientvisits";
     }
@@ -117,21 +119,13 @@ public class PatientController {
     @PostMapping("/addvisit/{patientId}")
     @Transactional
     public String addVisitsToPatient(@ModelAttribute Visit visit, @PathVariable long patientId){
-
         visitRepository.save(visit);
-
 
         Patient patient=patientRepository.findById(patientId);
         Hibernate.initialize(patient.getVisits());
-
-
-//        Query q = em.createQuery("SELECT e FROM Patient e LEFT JOIN FETCH e.visits WHERE e.id=:patientId");
-//        q.setParameter("patientId",patientId);
-//        Patient patient= (Patient) q.getResultList().get(0);
-//
         patient.getVisits().add(visit);
-        patientRepository.save(patient);
 
+        patientRepository.save(patient);
         return "redirect:../showvisits/{patientId}";
     }
 
@@ -146,23 +140,76 @@ public class PatientController {
 
     @PostMapping("/editvisit/{patientId}/{visitId}")
     public String modifyPatientVisit(@ModelAttribute Visit visit, @PathVariable long patientId, @PathVariable long visitId){
-
-//        Patient patient = patientRepository.findById(patientId);
-//        Hibernate.initialize(patient.getVisits());
-//
-//        Visit visittoedit= visitRepository.findById(visitId);                             //dlaczego to nie dziala?
-//        visitRepository.save(visittoedit);
-//        patientRepository.save(patient);
-//        Visit existing= visitRepository.findById(visitId);
-//        visitRepository.save(patientvisit);
-
-//        existing=patientvisit;
-//        visitRepository.(existing);
-
-//        patientRepository.save(patient);
-
         visitRepository.save(visit);
-//        return existing.toString();
+        return "redirect:../../showvisits/{patientId}";
+    }
+
+    @GetMapping("/deletevisit/{patientId}/{visitId}")
+    @Transactional
+    public String deletePatientVisit(Model m, @PathVariable long patientId, @PathVariable long visitId){
+        Patient patient = patientRepository.findByIdWithVisits(patientId);
+        Hibernate.initialize(patient.getVisits());
+        m.addAttribute("visit", visitRepository.findById(visitId));
+        m.addAttribute("patient", patient);
+        return "visit/patientvisitform";
+    }
+
+    @PostMapping("/deletevisit/{patientId}/{visitId}")
+    public String deletePatientVisit(@ModelAttribute Visit visit, @PathVariable long patientId, @PathVariable long visitId){
+        visitRepository.delete(visit);
+        return "redirect:../../showvisits/{patientId}";
+    }
+
+    @GetMapping("/addtraining/{patientId}")
+    public String addTrainingToPatient(Model m, @PathVariable long patientId){
+        Patient patient=patientRepository.findById(patientId);
+        m.addAttribute("patient", patient);
+        m.addAttribute("training", new Training());
+        return "visit/patienttrainingform";
+    }
+
+
+    @PostMapping("/addtraining/{patientId}")
+    @Transactional
+    public String addTrainingToPatient(@ModelAttribute Training training, @PathVariable long patientId){
+        trainingRepository.save(training);
+
+        Patient patient=patientRepository.findById(patientId);
+        Hibernate.initialize(patient.getTrainings());
+        patient.getTrainings().add(training);
+
+        patientRepository.save(patient);
+        return "redirect:../showvisits/{patientId}";
+    }
+
+    @GetMapping("/edittraining/{patientId}/{trainingId}")
+    public String modifyPatientTraining(Model m, @PathVariable long patientId, @PathVariable long trainingId){
+        Patient patient = patientRepository.findByIdWithVisits(patientId);
+        Hibernate.initialize(patient.getVisits());
+        m.addAttribute("training", trainingRepository.findById(trainingId));
+        m.addAttribute("patient", patient);
+        return "visit/patienttrainingform";
+    }
+
+    @PostMapping("/edittraining/{patientId}/{trainingId}")
+    public String modifyPatientTraining(@ModelAttribute Training training, @PathVariable long patientId, @PathVariable long trainingId){
+        trainingRepository.save(training);
+        return "redirect:../../showvisits/{patientId}";
+    }
+
+    @GetMapping("/deletetraining/{patientId}/{trainingId}")
+    @Transactional
+    public String deletePatientTraining(Model m, @PathVariable long patientId, @PathVariable long trainingId){
+        Patient patient = patientRepository.findByIdWithVisits(patientId);
+        Hibernate.initialize(patient.getTrainings());
+        m.addAttribute("training", trainingRepository.findById(trainingId));
+        m.addAttribute("patient", patient);
+        return "visit/patienttrainingform";
+    }
+
+    @PostMapping("/deletetraining/{patientId}/{trainingId}")
+    public String deletePatientTraining(@ModelAttribute Training training, @PathVariable long patientId, @PathVariable long trainingId){
+        trainingRepository.delete(training);
         return "redirect:../../showvisits/{patientId}";
     }
 

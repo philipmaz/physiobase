@@ -15,6 +15,7 @@
 <body>
 <h3>Patient: ${patient.firstName} ${patient.lastName} Visit Form</h3>
 <form:form method="post" modelAttribute="visit">
+    <form:hidden path="id"/>
     <div>
     <label for="date">Visit Date: </label>
     <form:input id="date" path="date" type="date"/>

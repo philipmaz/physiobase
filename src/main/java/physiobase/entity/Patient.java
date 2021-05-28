@@ -1,5 +1,9 @@
 package physiobase.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +21,16 @@ public class Patient {
     private String address;
     private String phoneNumber;
     private String email;
+    private String diagnostic;
+
+
+    @OneToMany //(cascade = CascadeType.REMOVE, orphanRemoval=true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    private List<Visit> visits = new ArrayList<>();
+
     @OneToMany
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Visit> visits=new ArrayList<>();
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    private List<Training> trainings=new ArrayList<>();
     private boolean isAgreement;
 
     public boolean getIsAgreement() {
@@ -115,6 +126,33 @@ public class Patient {
         return this;
     }
 
+    public List<Training> getTrainings() {
+        return trainings;
+    }
+
+    public Patient setTrainings(List<Training> trainings) {
+        this.trainings = trainings;
+        return this;
+    }
+
+    public boolean isAgreement() {
+        return isAgreement;
+    }
+
+    public Patient setAgreement(boolean agreement) {
+        isAgreement = agreement;
+        return this;
+    }
+
+    public String getDiagnostic() {
+        return diagnostic;
+    }
+
+    public Patient setDiagnostic(String diagnostic) {
+        this.diagnostic = diagnostic;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -126,7 +164,9 @@ public class Patient {
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", diagnostic='" + diagnostic + '\'' +
                 ", visits=" + visits +
+                ", trainings=" + trainings +
                 ", isAgreement=" + isAgreement +
                 '}';
     }
