@@ -23,7 +23,7 @@ ${patient.email}
 
 
 
-<form method="post" action="http://localhost:8080/visit/all">
+<form method="post" action="http://localhost:8080/patient/showvisits/${patient.id}">
     <div>
         <label for="date">Search for Visits by Date: </label>
         <input id="date" name="date" type="date"/>
