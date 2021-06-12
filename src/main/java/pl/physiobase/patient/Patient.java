@@ -1,5 +1,6 @@
 package pl.physiobase.patient;
 
+import pl.physiobase.path.Imagepath;
 import pl.physiobase.training.Training;
 import pl.physiobase.visit.Visit;
 
@@ -23,7 +24,7 @@ public class Patient {
     private String lastName;
     @NotBlank(message = "Gender: can not be blank.")
     private String sex;
-    @Size(min=11, max=11, message = "Pesel: must have exactly 10 characters.")
+    @Size(min=11, max=11, message = "Pesel: must have exactly 11 characters.")
     private String pesel;
     private String address;
     private String phoneNumber;
@@ -31,13 +32,15 @@ public class Patient {
     private String email;
     private String diagnostic;
 
+    @OneToMany(mappedBy = "patient")
+    private List<Imagepath> imagePaths=new ArrayList<>();
 
-    @OneToMany //(cascade = CascadeType.REMOVE, orphanRemoval=true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+
+    @OneToMany(mappedBy = "patient")           //(cascade = CascadeType.REMOVE, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<Visit> visits = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "patient")
+    //    @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private List<Training> trainings=new ArrayList<>();
     @AssertTrue(message = "Data processing: Statement must be checked and agreed.")
     private boolean isAgreement;
@@ -45,7 +48,17 @@ public class Patient {
 
 
 
+    public Patient() {
+    }
 
+    public List<Imagepath> getImagePaths() {
+        return imagePaths;
+    }
+
+    public Patient setImagePaths(List<Imagepath> imagePaths) {
+        this.imagePaths = imagePaths;
+        return this;
+    }
 
     public boolean getIsAgreement() {
         return isAgreement;
@@ -54,9 +67,6 @@ public class Patient {
     public Patient setIsAgreement(boolean agreement) {
         isAgreement = agreement;
         return this;
-    }
-
-    public Patient() {
     }
 
     public long getId() {

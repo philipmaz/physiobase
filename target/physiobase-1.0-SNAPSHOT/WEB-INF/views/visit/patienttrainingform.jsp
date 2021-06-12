@@ -16,6 +16,7 @@
 <h3>Patient: ${patient.firstName} ${patient.lastName} Training Form</h3>
 <form:form method="post" modelAttribute="training">
     <form:hidden path="id"/>
+    <form:hidden path="patient.id"/>
     <div>
         <label for="description">Description: </label>
         <div>

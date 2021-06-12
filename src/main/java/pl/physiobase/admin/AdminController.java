@@ -21,30 +21,6 @@ public class AdminController {
         this.adminRepository = adminRepository;
     }
 
-    @GetMapping("/home")
-    public String homePage(Model m, HttpSession session){
-
-        String email = (String) session.getAttribute("email");
-
-        Admin admin = adminRepository.findByEmail(email);
-
-        m.addAttribute("admin", admin);
-        return "home/homepage";
-
-    }
-
-//    @GetMapping("/addadmin")
-//    @ResponseBody
-//    public String addAdmin(){
-//        Admin admin = new Admin().setEmail("admin3@gmail.com").setPassword(BCrypt.hashpw("password3", BCrypt.gensalt()));
-//
-//        adminRepository.save(admin);
-//
-//        return "Admin added successfully";
-//
-//    }
-
-
     @GetMapping("/login")
     public String loginAdmin(Model m){
         m.addAttribute("admin",new Admin());
@@ -66,7 +42,7 @@ public class AdminController {
         for (Admin a : adminList) {
             if (Objects.equals(a.getEmail(), email) && BCrypt.checkpw(password, a.getPassword())) {
                 session.setAttribute("email", a.getEmail());
-                return "redirect:home";
+                return "redirect:../patient/home";
             }
         }
 

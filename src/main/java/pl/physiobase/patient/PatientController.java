@@ -1,10 +1,16 @@
 package pl.physiobase.patient;
 
+
 import org.hibernate.Hibernate;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.physiobase.admin.Admin;
+import pl.physiobase.admin.AdminRepository;
+import pl.physiobase.path.ImagePathRepository;
+import pl.physiobase.path.Imagepath;
 import pl.physiobase.training.Training;
 import pl.physiobase.visit.Visit;
 import pl.physiobase.training.TrainingRepository;
@@ -13,8 +19,11 @@ import pl.physiobase.visit.VisitRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +31,30 @@ import java.util.List;
 @RequestMapping("/patient")
 public class PatientController {
 
-    @PersistenceContext
-    private EntityManager em;
     private VisitRepository visitRepository;
     private PatientRepository patientRepository;
     private TrainingRepository trainingRepository;
+    private ImagePathRepository imagePathRepository;
+    private AdminRepository adminRepository;
 
-    public PatientController(VisitRepository visitRepository, PatientRepository patientRepository, TrainingRepository trainingRepository) {
+    public PatientController(VisitRepository visitRepository, PatientRepository patientRepository, TrainingRepository trainingRepository, ImagePathRepository imagePathRepository, AdminRepository adminRepository) {
         this.visitRepository = visitRepository;
         this.patientRepository = patientRepository;
         this.trainingRepository = trainingRepository;
+        this.imagePathRepository = imagePathRepository;
+        this.adminRepository = adminRepository;
+    }
+
+    @GetMapping("/home")
+    public String homePage(Model m, HttpSession session){
+
+        String email = (String) session.getAttribute("email");
+
+        Admin admin = adminRepository.findByEmail(email);
+
+        m.addAttribute("admin", admin);
+        return "home/homepage";
+
     }
 
     @GetMapping("/all")
@@ -101,7 +124,7 @@ public class PatientController {
         }
 
         patientRepository.save(patient);
-        return "redirect:../all";
+        return "redirect: ../showvisits/{id}";
     }
 
     @GetMapping("/deletepatient/{id}")
@@ -177,7 +200,9 @@ public class PatientController {
         Hibernate.initialize(patient.getVisits());
         Hibernate.initialize(patient.getTrainings());
         m.addAttribute("patient", patient);
-        m.addAttribute("visit", new Visit());
+        Visit visit = new Visit();
+        visit.setPatient(patient);
+        m.addAttribute("visit", visit);
         return "visit/patientvisitform";
     }
 
@@ -205,8 +230,14 @@ public class PatientController {
     }
 
     @PostMapping("/editvisit/{patientId}/{visitId}")
+    @Transactional
     public String modifyPatientVisit(@ModelAttribute Visit visit, @PathVariable long patientId, @PathVariable long visitId){
         visitRepository.save(visit);
+        Patient patient = patientRepository.findByIdWithVisits(patientId);
+        Hibernate.initialize(patient.getVisits());
+        Hibernate.initialize(patient.getTrainings());
+
+
         return "redirect:../../showvisits/{patientId}";
     }
 
@@ -234,7 +265,9 @@ public class PatientController {
         Hibernate.initialize(patient.getVisits());
         Hibernate.initialize(patient.getTrainings());
         m.addAttribute("patient", patient);
-        m.addAttribute("training", new Training());
+        Training training=new Training();
+        training.setPatient(patient);
+        m.addAttribute("training", training);
         return "visit/patienttrainingform";
     }
 
@@ -282,5 +315,106 @@ public class PatientController {
         trainingRepository.delete(training);
         return "redirect:../../showvisits/{patientId}";
     }
+
+    @GetMapping("/addfile/{id}")
+    @Transactional
+    public String addFile(@PathVariable long id) {
+        Patient patient = patientRepository.findById(id);
+        Hibernate.initialize(patient.getImagePaths());
+        List<Imagepath> imagepath_list =patient.getImagePaths();
+        JFileChooser picchooser = new JFileChooser();
+        picchooser.setDialogTitle("Select Image");
+        picchooser.showOpenDialog(null);
+        File pic = picchooser.getSelectedFile();
+        String path = pic.getAbsolutePath().replace('\\', '/');
+        String[] path_arr=path.split("/");
+        path= "/"+path_arr[path_arr.length-2]+"/"+path_arr[path_arr.length-1];
+
+        Imagepath pathtoAdd=new Imagepath();
+        pathtoAdd.setPath(path);
+        pathtoAdd.setPatient(patient);
+        imagePathRepository.save(pathtoAdd);
+        imagepath_list.add(pathtoAdd);
+
+        patient.setImagePaths(imagepath_list);
+        patientRepository.save(patient);
+
+        return "redirect:../showvisits/{id}";
+    }
+
+
+        @GetMapping("/showfile/{id}")
+        @Transactional
+        public String showFile(@PathVariable long id, Model m) {
+        Patient patient = patientRepository.findById(id);
+        Hibernate.initialize(patient.getImagePaths());
+        m.addAttribute("patient", patient);
+
+        return "patient/showimage";
+    }
+
+//        try{
+//            File image = new File(path);
+//            FileInputStream fis = new FileInputStream(image);
+//            ByteArrayOutputStream baos= new ByteArrayOutputStream();
+//            byte[] buff = new byte[1024];
+//            for(int readNum; (readNum=fis.read(buff)) !=-1 ; ){
+//                baos.write(buff,0,readNum);
+//            }
+////            userimage=baos.toByteArray();
+//        }
+//        catch(Exception e){
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+
+//    @GetMapping("/print")
+//    private static void generatePDFFromHTML(String filename) throws ParserConfigurationException, IOException, DocumentException {
+//        File html = new File("/home/filip/physiobase/src/main/webapp/WEB-INF/views/visit/allpatientvisits.jsp");
+//        byte[] xhtml = Jsoup.parse(html, "US-ASCII").html().getBytes();
+//        File dir = new File("/home/filip/physiobase/src/main/resources/results");
+//        dir.mkdirs();
+//        FileOutputStream fos = new FileOutputStream(new File(dir, String.valueOf(xhtml)));
+//        fos.write(xhtml);
+//        fos.close();
+
+
+        // Create and initialize URL
+//        URL oracleURL = new URL("http://localhost:8080/patient/showvisits/1");
+
+// Get web page as input stream
+//        InputStream is = oracleURL.openStream();
+
+// Initialize HTML load options
+//        HtmlLoadOptions htmloptions = new HtmlLoadOptions();
+
+// Load stream into Document object
+//        Document pdfDocument = new Document(is, htmloptions);
+
+// Save output as PDF format
+//        pdfDocument.save("HTML-to-PDF.pdf");
+
+//        Document document = new Document();
+//        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/filip/physiobase/src/main/resources/output/html.pdf"));
+//        document.open();
+//        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream("/home/filip/physiobase/src/main/webapp/WEB-INF/views/visit/allpatientvisits.jsp"));
+//        document.close();
+
+//        Document document = new Document();
+//        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/filip/physiobase/src/main/resources/output/html.pdf"));
+//        document.open();
+//        XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
+//        document.close();
+//    }
+
+//    public static void tidyUp(String path) throws IOException {
+//        File html = new File("/home/filip/physiobase/src/main/webapp/WEB-INF/views/visit/allpatientvisits.jsp");
+//        byte[] xhtml = Jsoup.parse(html, "US-ASCII").html().getBytes();
+//        File dir = new File("/home/filip/physiobase/src/main/resources/results");
+//        dir.mkdirs();
+//        FileOutputStream fos = new FileOutputStream(new File(dir, html.getName()));
+//        fos.write(xhtml);
+//        fos.close();
+//    }
+
 
 }

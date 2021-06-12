@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'acre-medium';
+    src: url("/fonts/acre-medium-webfont.woff2") format('woff2'),
+    url("/fonts/acre-medium-webfont.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    background-image: url("../images/Background1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: acre-medium, serif;
+    text-align: center;
+    color: white;
+}
+h1 {
+    color: royalblue;
+    font-size: 200px;
+}
+h2 {
+    color: black;
+    font-size: 17px;
+}
+p {
+    font-size: 15px;
+    color: red;
+    font-weight: bolder;
+}
+form input[type=submit] {
+    background: url("../images/login_button.jpg") no-repeat center center;
+    height: 70px;
+    width: 280px;
+    border: none;
+    color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+div {
+    display: block;
+    text-align: center;
+    margin-top: 50px;
+}
+form input[type=text] {
+    height: 41px;
+    width: 395px;
+    font-family: acre-medium;
+    padding: 15px;
+    font-size: 17px;
+}
+
+form input[type=password] {
+    height: 41px;
+    width: 395px;
+    font-family: acre-medium;
+    padding: 15px;
+    font-size: 17px;
+}
+#register {
+    margin-bottom: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#back {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}

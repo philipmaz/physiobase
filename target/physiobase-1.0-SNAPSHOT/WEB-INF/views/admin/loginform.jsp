@@ -11,34 +11,41 @@
 <html>
 <head>
     <title>Login Form</title>
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
 
-<h3>Log in: </h3>
+<div>
+    <h1>Phisiobase</h1>
+</div>
+<div>
+    <h2>* an app making physiotherapists, personal trainers and coaches lives easier </h2>
+</div>
+<br/>
+<br/>
+
 
 <form:form method="post" modelAttribute="admin">
     <form:hidden path="id"/>
     <div>
-        <label for="email">Email </label>
-        <div>
+<%--        <label for="email">Email </label>--%>
+<%--        <div>--%>
             <form:input id="email" path="email" type="text" placeholder="email adress"/>
-            <form:errors path="email"/>
-        </div>
+<%--        </div>--%>
     </div>
     <div>
-        <label for="password">Password </label>
-        <div>
-            <form:input id="password" path="password" type="text" placeholder="password"/>
-            <form:errors path="password"/>
-        </div>
+<%--        <label for="password">Password </label>--%>
+<%--        <div>--%>
+            <form:input id="password" path="password" type="password" placeholder="password" />
+<%--        </div>--%>
 
     </div>
     <div>
         <input type="submit" value="Login">
     </div>
-    <div>
+    <p>
         <form:errors path="*"/>
-    </div>
+    </p>
 
 
 </form:form>

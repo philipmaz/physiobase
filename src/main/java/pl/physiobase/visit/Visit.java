@@ -1,5 +1,7 @@
 package pl.physiobase.visit;
 
+import pl.physiobase.patient.Patient;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,17 @@ public class Visit {
     private long painScale;
     private String codeICD;
 
+    @ManyToOne
+    private Patient patient;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Visit setPatient(Patient patient) {
+        this.patient = patient;
+        return this;
+    }
 
     public Visit() {
     }

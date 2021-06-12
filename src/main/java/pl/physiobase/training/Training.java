@@ -1,5 +1,7 @@
 package pl.physiobase.training;
 
+import pl.physiobase.patient.Patient;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,8 +13,21 @@ public class Training {
     private String date;
     private String description;
 
+    @ManyToOne
+    private Patient patient;
+
 
     public Training() {
+    }
+
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Training setPatient(Patient patient) {
+        this.patient = patient;
+        return this;
     }
 
     public long getId() {
