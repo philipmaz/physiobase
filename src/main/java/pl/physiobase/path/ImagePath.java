@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="imagepaths")
-public class Imagepath {
+public class ImagePath {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -14,14 +14,14 @@ public class Imagepath {
     @ManyToOne
     private Patient patient;
 
-    public Imagepath() {
+    public ImagePath() {
     }
 
     public Patient getPatient() {
         return patient;
     }
 
-    public Imagepath setPatient(Patient patient) {
+    public ImagePath setPatient(Patient patient) {
         this.patient = patient;
         return this;
     }
@@ -30,7 +30,7 @@ public class Imagepath {
         return id;
     }
 
-    public Imagepath setId(long id) {
+    public ImagePath setId(long id) {
         this.id = id;
         return this;
     }
@@ -39,7 +39,7 @@ public class Imagepath {
         return path;
     }
 
-    public Imagepath setPath(String path) {
+    public ImagePath setPath(String path) {
         this.path = path;
         return this;
     }

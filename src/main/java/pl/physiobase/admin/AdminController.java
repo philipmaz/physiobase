@@ -1,5 +1,6 @@
 package pl.physiobase.admin;
 
+import org.hibernate.id.GUIDGenerator;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -42,6 +44,8 @@ public class AdminController {
         for (Admin a : adminList) {
             if (Objects.equals(a.getEmail(), email) && BCrypt.checkpw(password, a.getPassword())) {
                 session.setAttribute("email", a.getEmail());
+                session.setAttribute("id",UUID.randomUUID());
+
                 return "redirect:../patient/home";
             }
         }

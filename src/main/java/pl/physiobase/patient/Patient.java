@@ -1,6 +1,6 @@
 package pl.physiobase.patient;
 
-import pl.physiobase.path.Imagepath;
+import pl.physiobase.path.ImagePath;
 import pl.physiobase.training.Training;
 import pl.physiobase.visit.Visit;
 
@@ -33,14 +33,13 @@ public class Patient {
     private String diagnostic;
 
     @OneToMany(mappedBy = "patient")
-    private List<Imagepath> imagePaths=new ArrayList<>();
+    private List<ImagePath> imagePaths=new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "patient")           //(cascade = CascadeType.REMOVE, orphanRemoval=true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient")
     private List<Visit> visits = new ArrayList<>();
 
     @OneToMany(mappedBy = "patient")
-    //    @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private List<Training> trainings=new ArrayList<>();
     @AssertTrue(message = "Data processing: Statement must be checked and agreed.")
     private boolean isAgreement;
@@ -51,11 +50,11 @@ public class Patient {
     public Patient() {
     }
 
-    public List<Imagepath> getImagePaths() {
+    public List<ImagePath> getImagePaths() {
         return imagePaths;
     }
 
-    public Patient setImagePaths(List<Imagepath> imagePaths) {
+    public Patient setImagePaths(List<ImagePath> imagePaths) {
         this.imagePaths = imagePaths;
         return this;
     }

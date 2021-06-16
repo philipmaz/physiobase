@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import pl.physiobase.admin.Admin;
 import pl.physiobase.admin.AdminRepository;
 import pl.physiobase.path.ImagePathRepository;
-import pl.physiobase.path.Imagepath;
+import pl.physiobase.path.ImagePath;
 import pl.physiobase.training.Training;
 import pl.physiobase.visit.Visit;
 import pl.physiobase.training.TrainingRepository;
 import pl.physiobase.visit.VisitRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
@@ -321,7 +319,7 @@ public class PatientController {
     public String addFile(@PathVariable long id) {
         Patient patient = patientRepository.findById(id);
         Hibernate.initialize(patient.getImagePaths());
-        List<Imagepath> imagepath_list =patient.getImagePaths();
+        List<ImagePath> imagePath_list =patient.getImagePaths();
         JFileChooser picchooser = new JFileChooser();
         picchooser.setDialogTitle("Select Image");
         picchooser.showOpenDialog(null);
@@ -330,13 +328,13 @@ public class PatientController {
         String[] path_arr=path.split("/");
         path= "/"+path_arr[path_arr.length-2]+"/"+path_arr[path_arr.length-1];
 
-        Imagepath pathtoAdd=new Imagepath();
+        ImagePath pathtoAdd=new ImagePath();
         pathtoAdd.setPath(path);
         pathtoAdd.setPatient(patient);
         imagePathRepository.save(pathtoAdd);
-        imagepath_list.add(pathtoAdd);
+        imagePath_list.add(pathtoAdd);
 
-        patient.setImagePaths(imagepath_list);
+        patient.setImagePaths(imagePath_list);
         patientRepository.save(patient);
 
         return "redirect:../showvisits/{id}";

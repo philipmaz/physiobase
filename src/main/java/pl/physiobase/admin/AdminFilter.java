@@ -15,12 +15,11 @@ public class AdminFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session= httpRequest.getSession();
 
-        String email=(String)session.getAttribute("email");
-        if(email==null){
+        String id=(String)session.getAttribute("id");
+        if(id==null){
             HttpServletResponse httpResponse=(HttpServletResponse)response;
             ((HttpServletResponse) response).sendRedirect("/admin/login");
             return;
-
         }
 
 
