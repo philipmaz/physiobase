@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'acre-medium';
+    src: url("/fonts/acre-medium-webfont.woff2") format('woff2'),
+    url("/fonts/acre-medium-webfont.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    background-image: url("../images/Background1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: acre-medium, serif;
+    text-align: center;
+}
+/*#navigation {*/
+/*    background-color: white;*/
+/*    height: 65px;*/
+/*    padding-top: 10px;*/
+/*}*/
+#tile {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    display: inline-block;
+    margin-top: 50px;
+}
+/*form input[type=text] {*/
+/*    !*background: url("../images/login_button.jpg") no-repeat center center;*!*/
+/*    height: 70px;*/
+/*    width: 280px;*/
+/*    border: none;*/
+/*    !*color: transparent;*!*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*    display: block;*/
+/*}*/
+div {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+}
+form input[type=text] {
+    height: 41px;
+    width: 395px;
+    font-family: acre-medium, serif;
+    padding: 15px;
+    font-size: 17px;
+}
+
+p {
+    font-size: 15px;
+    color: red;
+    font-weight: bolder;
+}
+
+/*a {*/
+/*    padding-right: 20px;*/
+/*}*/
+/*p {*/
+/*    margin-top: 50px;*/
+/*    font-size: 50px;*/
+/*    color: white;*/
+/*    line-height: 30%;*/
+/*}*/
+/*h4 {*/
+/*    color: white;*/
+/*    font-size: 17px;*/
+/*}*/
+/*.add {*/
+/*    background: transparent;*/
+/*    color: white;*/
+/*    height: 41px;*/
+/*    width: 395px;*/
+/*    font-size: 17px;*/
+/*    border: 0;*/
+/*    outline: 0;*/
+/*    border-bottom: 2px solid white;*/
+/*}*/
+/*#clear {*/
+/*    background : url("../images/Clear.png") no-repeat center center;*/
+/*    height: 41px;*/
+/*    width: 395px;*/
+/*    border: none;*/
+/*    color: transparent;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*    display: block;*/
+/*}*/
+/*#confirm {*/
+/*    background : url("../images/Add.png") no-repeat center center;*/
+/*    height: 41px;*/
+/*    width: 395px;*/
+/*    border: none;*/
+/*    color: transparent;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*    display: block;*/
+/*}*/
+::placeholder {
+    color: black;
+}
+/*#back {*/
+/*    margin-bottom: 50px;*/
+/*    margin-top: 50px;*/
+/*}*/

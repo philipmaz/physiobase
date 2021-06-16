@@ -3,8 +3,17 @@
 <html>
 <head>
     <title>Patient List</title>
+    <link rel="stylesheet" href="/css/table.css">
 </head>
 <body>
+
+<div id="tile">
+    <a href="/patient/all"><img src="/images/allpatients.jpg" title="All Patients" width="150px" height="150px" title="All Patients"></a>
+    <a href="/patient/addpatient"><img src="/images/addpatient_icon1.jpg" title="Add Patient" width="150px" height="150px" title="Add Patient"></a>
+    <a href="/visit/all"><img src="/images/visit_icon5.png" title="All Visits" width="190px" height="150px" title="All Visits"></a>
+    <a href="http://localhost:8080/patient/home"><img src="/images/home.png" width="150px" height="150px" title="Homepage"></a>
+</div>
+
 <form method="post" action="http://localhost:8080/patient/all">
     <div>
         <label for="lastName">Search for Patients by Last Name: </label>
@@ -15,7 +24,7 @@
     </div>
 </form>
 
-<table border="1">
+<table>
     <thead>
     <th>ID</th>
     <th>First Name</th>
@@ -26,10 +35,7 @@
     <th>Phone Number</th>
     <th>Email</th>
     <th>Agreement</th>
-    <th>Modify</th>
-    <th>Delete</th>
-    <th>Show</th>
-    <th>Add</th>
+    <th>Details</th>
     </thead>
     <tbody>
     <c:forEach items="${patients}" var="patient">
@@ -43,26 +49,22 @@
             <td><c:out value="${patient.phoneNumber}"/></td>
             <td><c:out value="${patient.email}"/></td>
             <td><c:out value="${patient.isAgreement}"/></td>
-            <td><a href="//localhost:8080/patient/editpatient/${patient.id}">Modify</a></td>
-            <td><a href="//localhost:8080/patient/deletepatient/${patient.id}">Delete</a></td>
-            <td><a href="//localhost:8080/patient/showvisits/${patient.id}">Show visits</a></td>
-            <td><a href="//localhost:8080/patient/addvisit/${patient.id}">Add visit</a></td>
+            <td><a href="//localhost:8080/patient/showvisits/${patient.id}"><img src="/images/details2.png" width="30px" height="35px" title="Show Details"></a></td>
         </tr>
     </c:forEach>
     </tbody>
 
 </table>
 
-<div>
-    <a href="http://localhost:8080/patient/addpatient">Add Patient</a>
-
-</div>
-<div>
-    <a href="http://localhost:8080/patient/all">Show All Patients</a>
-</div>
-<div>
-    <a href="http://localhost:8080/visit/all">Show All Visits</a>
-</div>
+<%--<div>--%>
+<%--    <a href="http://localhost:8080/patient/home"><img src="/images/back1.png" width="150px" height="150px" title="Homepage"></a>--%>
+<%--</div>--%>
+<%--<div>--%>
+<%--    <a href="http://localhost:8080/patient/all">Show All Patients</a>--%>
+<%--</div>--%>
+<%--<div>--%>
+<%--    <a href="http://localhost:8080/visit/all">Show All Visits</a>--%>
+<%--</div>--%>
 </body>
 </html>
 
