@@ -16,7 +16,7 @@ Functionalities:
 
 # physiobase
 
-Phisiobase to aplikacja webowa przeznaczona dla fizjoterapeutów i trenerów personalnych 
+Physiobase to aplikacja webowa przeznaczona dla fizjoterapeutów i trenerów personalnych 
 umożliwiająca zapisywanie postępów terapii i treningów w codziennej pracy z pacjentami.
 
 Aplikacja napisana jest w języku Java z wykorzystaniem frameworków Spring oraz Hibernate.
