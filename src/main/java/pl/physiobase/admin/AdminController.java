@@ -44,7 +44,7 @@ public class AdminController {
         for (Admin a : adminList) {
             if (Objects.equals(a.getEmail(), email) && BCrypt.checkpw(password, a.getPassword())) {
                 session.setAttribute("email", a.getEmail());
-                session.setAttribute("id",UUID.randomUUID());
+                session.setAttribute("id",UUID.randomUUID().toString());
 
                 return "redirect:../patient/home";
             }

@@ -55,11 +55,6 @@
         <form:errors path="*"/>
     </div>
 </form:form>
-<div>
-    <a href="http://localhost:8080/patient/showvisits/${patient.id}">Show All Patients Visits</a>
-</div>
-<div>
-    <a href="http://localhost:8080/patient/all">Show All Patients</a>
-</div>
+
 </body>
 </html>

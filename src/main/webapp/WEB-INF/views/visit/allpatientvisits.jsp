@@ -16,6 +16,7 @@
 
 <div>
     <h2>${patient.firstName} ${patient.lastName}    <a href="//localhost:8080/patient/editpatient/${patient.id}"><img src="/images/editpatient.png" width="80px" height=80px" title="Edit Patient Details"></a>
+        <a href="//localhost:8080/patient/deletepatient/${patient.id}"><img src="/images/delete.png" width="70px" height=70px" title="Delete Patient"></a>
     </h2>
 </div>
 

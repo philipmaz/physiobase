@@ -83,16 +83,4 @@ public class VisitController {
         return "redirect:../all";
     }
 
-
-//    @GetMapping("/editpatientvisit/{visitId}/{patientId}")
-//    public String editPatientVisit(Model m, @PathVariable long visitId,@PathVariable long patientId){
-//        m.addAttribute("visit", visitRepository.findById(visitId));
-//        return "visit/visitform";
-//    }
-//
-//    @PostMapping("/editpatientvisit/{visitId}/{patientId}")
-//    public String editPatientVisit(@ModelAttribute @Valid Visit visit, BindingResult violation,@PathVariable long visitId,@PathVariable long patientId){
-//        visitRepository.save(visit);
-//        return "redirect:http://localhost:8080/patient/showvisits/{patientId}";
-//    }
 }

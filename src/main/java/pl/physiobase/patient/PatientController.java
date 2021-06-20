@@ -126,6 +126,7 @@ public class PatientController {
     }
 
     @GetMapping("/deletepatient/{id}")
+    @Transactional
     public String deletePatient(Model m, @PathVariable long id){
         Patient patient=patientRepository.findById(id);
         Hibernate.initialize(patient.getVisits());
@@ -244,10 +245,9 @@ public class PatientController {
     public String deletePatientVisit(Model m, @PathVariable long patientId, @PathVariable long visitId){
         Patient patient = patientRepository.findByIdWithVisits(patientId);
         Hibernate.initialize(patient.getVisits());
-        Hibernate.initialize(patient.getTrainings());
         m.addAttribute("visit", visitRepository.findById(visitId));
         m.addAttribute("patient", patient);
-        return "visit/patientvisitform";
+        return "visit/deletevisitform";
     }
 
     @PostMapping("/deletevisit/{patientId}/{visitId}")
@@ -350,69 +350,4 @@ public class PatientController {
 
         return "patient/showimage";
     }
-
-//        try{
-//            File image = new File(path);
-//            FileInputStream fis = new FileInputStream(image);
-//            ByteArrayOutputStream baos= new ByteArrayOutputStream();
-//            byte[] buff = new byte[1024];
-//            for(int readNum; (readNum=fis.read(buff)) !=-1 ; ){
-//                baos.write(buff,0,readNum);
-//            }
-////            userimage=baos.toByteArray();
-//        }
-//        catch(Exception e){
-//            JOptionPane.showMessageDialog(null, e);
-//        }
-
-//    @GetMapping("/print")
-//    private static void generatePDFFromHTML(String filename) throws ParserConfigurationException, IOException, DocumentException {
-//        File html = new File("/home/filip/physiobase/src/main/webapp/WEB-INF/views/visit/allpatientvisits.jsp");
-//        byte[] xhtml = Jsoup.parse(html, "US-ASCII").html().getBytes();
-//        File dir = new File("/home/filip/physiobase/src/main/resources/results");
-//        dir.mkdirs();
-//        FileOutputStream fos = new FileOutputStream(new File(dir, String.valueOf(xhtml)));
-//        fos.write(xhtml);
-//        fos.close();
-
-
-        // Create and initialize URL
-//        URL oracleURL = new URL("http://localhost:8080/patient/showvisits/1");
-
-// Get web page as input stream
-//        InputStream is = oracleURL.openStream();
-
-// Initialize HTML load options
-//        HtmlLoadOptions htmloptions = new HtmlLoadOptions();
-
-// Load stream into Document object
-//        Document pdfDocument = new Document(is, htmloptions);
-
-// Save output as PDF format
-//        pdfDocument.save("HTML-to-PDF.pdf");
-
-//        Document document = new Document();
-//        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/filip/physiobase/src/main/resources/output/html.pdf"));
-//        document.open();
-//        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream("/home/filip/physiobase/src/main/webapp/WEB-INF/views/visit/allpatientvisits.jsp"));
-//        document.close();
-
-//        Document document = new Document();
-//        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/filip/physiobase/src/main/resources/output/html.pdf"));
-//        document.open();
-//        XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-//        document.close();
-//    }
-
-//    public static void tidyUp(String path) throws IOException {
-//        File html = new File("/home/filip/physiobase/src/main/webapp/WEB-INF/views/visit/allpatientvisits.jsp");
-//        byte[] xhtml = Jsoup.parse(html, "US-ASCII").html().getBytes();
-//        File dir = new File("/home/filip/physiobase/src/main/resources/results");
-//        dir.mkdirs();
-//        FileOutputStream fos = new FileOutputStream(new File(dir, html.getName()));
-//        fos.write(xhtml);
-//        fos.close();
-//    }
-
-
 }

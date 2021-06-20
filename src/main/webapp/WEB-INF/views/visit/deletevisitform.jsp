@@ -11,10 +11,22 @@
 <html>
 <head>
     <title>Visit Form</title>
+    <link rel="stylesheet" href="/css/newform.css">
+
 </head>
 <body>
+
+<div id="tile">
+    <a href="/patient/all"><img src="/images/allpatients.jpg" title="All Patients" width="80px" height="80px" title="All Patients"></a>
+    <a href="/patient/addpatient"><img src="/images/addpatient_icon1.jpg" title="Add Patient" width="80px" height="80px" title="Add Patient"></a>
+    <a href="/visit/all"><img src="/images/visit_icon5.png" title="All Visits" width="100px" height="80px" title="All Visits"></a>
+    <a href="http://localhost:8080/patient/home"><img src="/images/home.png" width="80px" height="80px" title="Homepage"></a>
+</div>
+
 <h3>Are you sure you want to delete this visit?</h3>
 <form:form method="post" modelAttribute="visit">
+    <form:hidden path="id"/>
+    <form:hidden path="patient.id"/>
     <div>
     <label for="date">Visit Date: </label>
     <form:input id="date" path="date" type="date"/>
@@ -44,11 +56,6 @@
         <form:errors path="*"/>
     </div>
 </form:form>
-<div>
-    <a href="http://localhost:8080/visit/all">Show All Visits</a>
-</div>
-<div>
-    <a href="http://localhost:8080/patient/all">Show All Patients</a>
-</div>
+
 </body>
 </html>
