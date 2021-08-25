@@ -1,1 +1,1 @@
-heroku ps:scale web=1
+web: java -cp target/classes/:target/dependency
