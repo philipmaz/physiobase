@@ -1,1 +1,1 @@
-web: java -jar physiobase/out/artifacts/physiobase_jar/physiobase.jar
+web: java $JAVA_OPTS -jar physiobase/out/artifacts/physiobase_jar/physiobase.jar
