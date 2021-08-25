@@ -1,1 +1,1 @@
-web: java -jar /home/filip/physiobase/out/artifacts/physiobase_jar/physiobase.jar
+web: java -jar physiobase/out/artifacts/physiobase_jar/physiobase.jar
