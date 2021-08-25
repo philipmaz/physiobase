@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar physiobase/target/physiobase-1.0-SNAPSHOT.war
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar physiobase/out/artifacts/physiobase_jar/physiobase.jar
