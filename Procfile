@@ -1,1 +1,1 @@
-web: java -cp target/classes/:target/dependency/* org.physiobase.EntryPoint
+web: java -jar /home/filip/physiobase/out/artifacts/physiobase_jar/physiobase.jar
