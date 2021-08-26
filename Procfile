@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar physiobase/out/artifacts/physiobase_jar/physiobase.jar
+web: java -Dserver.port=$PORT -jar out/artifacts/physiobase_jar/physiobase.jar
