@@ -1,0 +1,16 @@
+pl/physiobase/admin/AdminController.class
+pl/physiobase/training/TrainingRepository.class
+pl/physiobase/visit/VisitController.class
+pl/physiobase/visit/VisitRepository.class
+pl/physiobase/config/AppInitializer.class
+pl/physiobase/visit/Visit.class
+pl/physiobase/admin/AdminFilter.class
+pl/physiobase/path/ImagePath.class
+pl/physiobase/admin/Admin.class
+pl/physiobase/path/ImagePathRepository.class
+pl/physiobase/training/Training.class
+pl/physiobase/config/AppConfig.class
+pl/physiobase/patient/PatientController.class
+pl/physiobase/patient/Patient.class
+pl/physiobase/admin/AdminRepository.class
+pl/physiobase/patient/PatientRepository.class

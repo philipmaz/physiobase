@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar out/artifacts/physiobase_jar/physiobase.jar
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
