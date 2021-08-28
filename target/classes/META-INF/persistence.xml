@@ -3,18 +3,23 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-    <persistence-unit name="PersistenceUnit">
+    <persistence-unit name="nzvj69s6ro2wqwe9">
         <properties>
+<!--            <property name="javax.persistence.jdbc.url"-->
+<!--                      value="jdbc:mysql://localhost:3306/physiobase?serverTimezone=UTC"/>-->
+<!--            <property name="javax.persistence.jdbc.user" value="root"/>-->
+<!--            <property name="javax.persistence.jdbc.password" value="coderslab"/>-->
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/physiobase?serverTimezone=UTC"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="coderslab"/>
+                      value="jdbc:mysql://pei17y9c5bpuh987.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/nzvj69s6ro2wqwe9"/>
+            <property name="javax.persistence.jdbc.user" value="b1y7gl412rew8tg4"/>
+            <property name="javax.persistence.jdbc.password" value="ejho8268urd6n9j7"/>
+
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.schema-generation.database.action"
                       value="none"/>
 
-            <property name="javax.persistence.sql-load-script-source"
-                      value="META-INF/sql/data.sql" />
+<!--            <property name="javax.persistence.sql-load-script-source"-->
+<!--                      value="META-INF/sql/data.sql" />-->
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
